@@ -187,7 +187,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-26 16:37:19" itemprop="dateModified" datetime="2020-03-26T16:37:19+08:00">2020-03-26</time>
+                <time title="修改时间：2020-03-30 17:03:42" itemprop="dateModified" datetime="2020-03-30T17:03:42+08:00">2020-03-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,7 +225,7 @@
 <h2 id="世界空间"><a href="#世界空间" class="headerlink" title="世界空间"></a>世界空间</h2><p>将物体导入程序的世界中，世界坐标指物体相对于设定的世界原点的坐标，是绝对的。</p>
 <h2 id="观察空间"><a href="#观察空间" class="headerlink" title="观察空间"></a>观察空间</h2><p>观察空间即为摄像机空间，是以相机为原点、按指定视角观察到的空间。注意，该变换并非作用于观察者（如相机），而是作用于整个场景使其以相反于相机的方向移动至指定视角。<br>空间中物体的缩放、位移、缩放操作由矩阵表示，通过矩阵乘法将这些变换组合。注意组合时按照缩放、旋转、位移的顺序排列，否则会引起错误。<br>对多个旋转矩阵的复合可能导致<a href="https://krasjet.github.io/quaternion/bonus_gimbal_lock.pdf" target="_blank" rel="noopener">万向节死锁</a>，解决方案为用<a href="https://krasjet.github.io/quaternion/quaternion.pdf" target="_blank" rel="noopener">四元数Quaternion</a>表示旋转矩阵。</p>
 <h2 id="裁剪空间"><a href="#裁剪空间" class="headerlink" title="裁剪空间"></a>裁剪空间</h2><p>投影矩阵(projection)将物体从观察空间变换到裁剪空间，实现从3D坐标投影到2D标准化设备坐标的映射。投影矩阵具有一定的观察范围，范围外的物体内容会被裁剪掉。<br>投影矩阵包含正射投影(orthographic)和透视投影(perspective)。正射投影为平行的立方体型平截头体，包含宽、高、近平面(near)、远平面(far)四个参数。透视投影为三角锥型平截头体，投影过程中修改每个顶点坐标的w值，使得离观察点越远处w分量越大，最后用透视除法将每个坐标分量除以w，符合近大远小的经验。 </p>
-<p><img src="/images/lib_hidden.png" alt="">  </p>
+<p><img src="/images/perspective_proj.png" alt="">  </p>
 <p>透视平截头体包含4个参数：fov表示视野，定义了我们可以看到场景中多大的范围，一般为45；近平面；远平面；视口的宽高比。<br>投影矩阵的计算参考<a href="http://www.songho.ca/opengl/gl_projectionmatrix.html" target="_blank" rel="noopener">Songho</a>。</p>
 <h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>记模型矩阵表示物体从局部空间到世界空间的变换，观察矩阵表示从世界空间到观察空间的变换，投影矩阵表示从观察空间到裁剪空间的变换，则可以组合为<br>$$V_{clip} = M_{projection} \cdot M_{view} \cdot M_{model} \cdot V_{local}$$<br>矩阵运算与原流程顺序是相反的。</p>
 <h1 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h1><p>在坐标系统一节中，观察矩阵将物体从世界坐标变换到相对于相机位置与视角的观察坐标（实际上是世界相对相机的移动），因此，要表示观察空间，需要确定相机在世界坐标中的位置和方向。</p>
